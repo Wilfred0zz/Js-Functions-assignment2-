@@ -90,21 +90,18 @@ console.log(myEvery(array1,isBelowThreshold));
 */
 
 //myReduce\\---------------------------------------------------------------------------------------------------------------------------------------------------------
-const myReduce = (array, mycallback) => {//adds all elements and an accumulator if there is one into one value
+const myReduce = (array, mycallback, currentValue) => {//adds all elements and an accumulator if there is one into one value
     let sum;
-    if(mycallback === undefined){ //checks whether or not there is an accumulator and takes care of it if undefined
-        sum=0;
-    }
-    else{
-        sum = mycallback //sets the sum to the accumulator
+    if(currentValue !== undefined){ //checks whether or not there is an accumulator and takes care of it if undefined
+        sum=currentValue;
     }
     for(let i=0; i<array.length; i++){ //adds all the elements in the array into one value.
-        sum+=(array[i]); 
+        sum = mycallback(sum,array[i],i,array); 
     }
 
     return sum;
 }
-/*
+
 const example = [1, 2, 3, 4];
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -116,7 +113,7 @@ console.log(myReduce(example));
 // 5 + 1 + 2 + 3 + 4
 console.log(example.reduce(reducer, 5));
 console.log(myReduce(example,5))
-*/
+
 
 //myIncludes\\---------------------------------------------------------------------------------------------------------------------------------------------------------
 const myIncludes = (array, mycallback) => { //searches for if a an element is in the array.
