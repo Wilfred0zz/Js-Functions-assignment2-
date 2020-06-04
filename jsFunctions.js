@@ -92,27 +92,28 @@ console.log(myEvery(array1,isBelowThreshold));
 //myReduce\\---------------------------------------------------------------------------------------------------------------------------------------------------------
 const myReduce = (array, mycallback, currentValue) => {//adds all elements and an accumulator if there is one into one value
     let sum;
-    if(currentValue !== undefined){ //checks whether or not there is an accumulator and takes care of it if undefined
-        sum=currentValue;
+    if(currentValue){ //checks whether or not there is an accumulator and takes care of it if undefined
+        sum = currentValue;
+    }
+    else if (array.length > 0){ //handles if there is no currentValue given it takes sum as the first index in the array
+        sum = array[0];
+        array = array.splice(1); 
+
     }
     for(let i=0; i<array.length; i++){ //adds all the elements in the array into one value.
         sum = mycallback(sum,array[i],i,array); 
     }
-
+    
     return sum;
 }
 
-const example = [1, 2, 3, 4];
+const example = [1, 2, 3, 4, 15];
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
 // 1 + 2 + 3 + 4
 console.log(example.reduce(reducer));
 // expected output: 10
-console.log(myReduce(example));
-
-// 5 + 1 + 2 + 3 + 4
-console.log(example.reduce(reducer, 5));
-console.log(myReduce(example,5))
+console.log(myReduce(example, reducer));
 
 
 //myIncludes\\---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -165,8 +166,8 @@ console.log(myIndexOf(beasts,'bison', 2));
 
 console.log(beasts.indexOf('giraffe'));
 console.log(myIndexOf(beasts,'egg'));
-*/
 
+*/
 
 //myPush\\---------------------------------------------------------------------------------------------------------------------------------------------------------
 const myPush = (array, elementToAdd) => {//adds a new element to array
